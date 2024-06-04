@@ -96,26 +96,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="task-1-conceptual-questions" class="level2">
 <h2 class="anchored" data-anchor-id="task-1-conceptual-questions">Task 1: Conceptual Questions</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>If your working directory is myfolder/homework/, what relative path would you specify to get</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>If your working directory is myfolder/homework/, what relative path would you specify to get </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>the file located at myfolder/MyData.csv?</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;  The relative path to get the file located at myfolder/MyData.csv would be ../MyData.csv</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What are the major benefits of using R projects?</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What is git and what is github?</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>What are the two main differences between a tibble and a data.frame?</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Rewrite the following nested function call using baseR’s chaining operator: </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>arrange(filter(select(as_tibble(iris), starts_with("Petal"), Species), Petal.Length <span class="sc">\&lt;</span> 1.55), Species)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>What is meant by long format data and wide format data? Which do we generally prefer for </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>statistical analysis?</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Answer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; R projects have many great features. One of them is that they make work easy to reproduce. </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">This means that others, or even yourself in the future, can do the same work again without </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">problems. They also help keep work well organized keeping it tidy and easy to understand. </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">Lastly, the easy-to-move nature of R projects is very important. All these features are really </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">helpful when you need to work with others or move your work to a different computer. </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>What is git and what is github?</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Git is a distributed version control system that allows multiple people to work on a project</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">at the same time without overwriting each other’s changes. It keeps track of changes made to </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">files and directories in a repository. GitHub is a web-based hosting service for Git </span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">repositories. It provides a centralized location where developers can store, share, publish,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">test, and collaborate on software development projects.</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>What are the two main differences between a tibble and a data.frame?</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; In my opinion two main differences are priting and rules for maintaining consistent data </span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">types within columns. When printing a tibble, the dimensions (number of rows and columns) </span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">are displayed, variable's types are displayed, plus tibbles print only the first 10 rows </span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">and all the columns that fit on the screen, making them more compact and easier to read, </span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">especially with large datasets. In contrast, data.frames print the entire dataset by </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">default, which can be overwhelming for large datasets. Furthermore, tibbles enforce stricter</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">rules for maintaining consistent data types within columns. When you create or modify </span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">a tibble, it will attempt to preserve the data types of its columns. This consistency </span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">helps prevent unexpected type conversions that can occur in data.frames, where operations </span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">may coerce data types to be uniform across columns. It makes it tibble sometimes painfull </span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">to work with but prevents from unexpected data errors in a long run. </span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Rewrite the following nested function call using baseR’s chaining operator: </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>arrange(filter(select(as_tibble(iris), starts_with("Petal"), Species), Petal.Length <span class="sc">\&lt;</span> 1.55), Species)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;library(dplyr) </span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;iris |&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="at">as_tibble() |&gt; </span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="at">select(starts_with("Petal"),Species) |&gt;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="at">filter(Petal.Legth &lt;1.55) |&gt; </span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="at">arrange(Species)</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>What is meant by long format data and wide format data? Which do we generally prefer for </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>statistical analysis?</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Long format data has each row representing a single observation, with each variable in its</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="at">own column. This format is ideal for representing data over time or across different conditions.</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="at">In contrast, wide format data has each row representing a single individual or unit, with </span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="at">variables in separate columns. While wide format is useful for summarizing data or comparing </span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="at">variables across groups, long format is generally preferred for statistical analysis due to </span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="at">its flexibility and suitability for statistical modelling.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="task-2-reading-delimited-data" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-reading-delimited-data">Task 2 Reading Delimited Data</h2>
+</section>
+<section id="task-2-combining-excel-and-delimited-data" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-combining-excel-and-delimited-data">Task 2: Combining Excel and Delimited Data</h2>
+</section>
+<section id="task-3-database-practice" class="level2">
+<h2 class="anchored" data-anchor-id="task-3-database-practice">Task 3: Database Practice</h2>
 </section>
 
 </main>
