@@ -1,0 +1,38 @@
+---
+title: "Homework #3"
+format: html
+editor: visual
+---
+
+## Task 1: Conceptual Questions
+
+``` markdown
+1. If your working directory is myfolder/homework/, what relative path would you specify to get
+the file located at myfolder/MyData.csv?
+> Answer
+
+2. What are the major benefits of using R projects?
+> Answer
+
+3. What is git and what is github?
+> Answer
+
+4. What are the two main differences between a tibble and a data.frame?
+> Answer
+
+5. Rewrite the following nested function call using baseR’s chaining operator: 
+arrange(filter(select(as_tibble(iris), starts_with("Petal"), Species), Petal.Length \< 1.55), Species)
+> Answer
+
+6. What is meant by long format data and wide format data? Which do we generally prefer for 
+statistical analysis?
+> Answer
+```
+
+## Task 2 Reading Delimited Data
+
+## Task 2: Combining Excel and Delimited Data
+
+## Task 3: Database Practice
+
+
