@@ -26,7 +26,7 @@ repositories. It provides a centralized location where developers can store, sha
 test, and collaborate on software development projects.
 
 4. What are the two main differences between a tibble and a data.frame?
-> In my opinion two main differences are priting and rules for maintaining consistent data 
+> In my opinion two main differences are printing and rules for maintaining consistent data 
 types within columns. When printing a tibble, the dimensions (number of rows and columns) 
 are displayed, variable's types are displayed, plus tibbles print only the first 10 rows 
 and all the columns that fit on the screen, making them more compact and easier to read, 
@@ -39,9 +39,8 @@ may coerce data types to be uniform across columns. It makes it tibble sometimes
 to work with but prevents from unexpected data errors in a long run. 
 
 5. Rewrite the following nested function call using baseR’s chaining operator: 
-arrange(filter(select(as_tibble(iris), starts_with("Petal"), Species), Petal.Length \< 1.55), Species)
->library(dplyr) 
-
+arrange(filter(select(as_tibble(iris), starts_with("Petal"), Species), Petal.Length \< 1.55), 
+Species)
 >iris |>
 as_tibble() |> 
 select(starts_with("Petal"),Species) |>
@@ -60,6 +59,294 @@ its flexibility and suitability for statistical modelling.
 
 ## Task 2 Reading Delimited Data
 
+### Glass Data
+
+Read data from URL:
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(readr)
+
+glass <- read_delim("https://www4.stat.ncsu.edu/~online/datasets/glass.data", 
+                       delim = ",",
+                       col_names = c("Id", "RI", "Na", "Mg", "Al", "Si","K","Ca","Ba","Fe","Type_of_Glass")
+)
+glass
+ 
+```
+
+Start a chain that would overwrite the Type_of_glass variable using mutate().
+
+```{r}
+glass |>
+  mutate(Type_of_Glass = case_when(
+    Type_of_Glass == 1 ~ "building_windows_float_processed",
+    Type_of_Glass == 2 ~ "building_windows_non_float_processed",
+    Type_of_Glass == 3 ~ "vehicle_windows_float_processed",
+    Type_of_Glass == 4 ~ "vehicle_windows_non_float_processed",
+    Type_of_Glass == 5 ~ "containers",
+    Type_of_Glass == 6 ~ "tableware",
+    Type_of_Glass == 7 ~ "headlamps",
+    TRUE ~ as.character(Type_of_Glass)
+  ))
+```
+
+keep only observations where the Fe variable is less than 0.2 and the Type of Glass is either “tableware” or “headlamp"
+
+```{r}
+glass |>
+  mutate(Type_of_Glass = case_when(
+    Type_of_Glass == 1 ~ "building_windows_float_processed",
+    Type_of_Glass == 2 ~ "building_windows_non_float_processed",
+    Type_of_Glass == 3 ~ "vehicle_windows_float_processed",
+    Type_of_Glass == 4 ~ "vehicle_windows_non_float_processed",
+    Type_of_Glass == 5 ~ "containers",
+    Type_of_Glass == 6 ~ "tableware",
+    Type_of_Glass == 7 ~ "headlamps",
+    TRUE ~ as.character(Type_of_Glass)
+  )) |>
+  filter(Fe<0.2 & Type_of_Glass %in% c("tableware","headlamps"))
+```
+
+### Yeast Data
+
+Read data
+
+```{r}
+yeast <- read_fwf("https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+                  fwf_widths(c(12,6,6,6,6,6,6,6,6,3),
+                             c("seq_name","mcg","gvh","alm","mit","erl","pox","vac","nuc","class"))
+                  )
+yeast
+
+```
+
+Start a chain that removes the seq_name and nuc columns.
+
+```{r}
+yeast |>
+  select(-seq_name, -nuc)
+
+```
+
+
+Continue your chain to add columns corresponding to the mean and median of each
+numeric variable (mcg, gvh, alm, mit, erl, pox, and vac) at each class grouping.
+
+```{r}
+yeast |>
+  select(-seq_name, -nuc) |>
+  group_by(class) |>
+  mutate(across(where(is.numeric),list(mean=mean,median=median),
+                .names = "{.col}_{.fn}"))
+
+
+```
+
 ## Task 2: Combining Excel and Delimited Data
 
+1. Import the data from the first sheet using the readxl package and print out the tibble
+```{r}
+library(readxl)
+white_wine <- read_excel("data/white-wine.xlsx")
+white_wine
+```
+
+2.a. Read in the data from the 2nd sheet. This should return a data frame with 
+one column containing alternative versions of the variable 
+
+```{r}
+cnames <- read_excel("data/white-wine.xlsx",sheet = 2)
+cnames
+```
+
+2.b. Grab that column and overwrite the current column names (colnames()) of 
+your white_wine tibble.
+
+```{r}
+colnames(white_wine) <- cnames$Variables
+colnames(white_wine)
+```
+
+
+3. Lastly, add a column to this data set to indicate the wines are white. That 
+is, add a column that has values of ‘white’ for every observation.
+```{r}
+white_wine <-
+  white_wine |>
+  mutate(w_type = "white")
+white_wine
+```
+
+4. Repeat same steps for red wine csv file
+```{r}
+red_wine <- read_delim("data/red-wine.csv")
+red_wine
+
+#col names
+colnames(red_wine) <- cnames$Variables
+colnames(red_wine)
+
+#add wine type column
+red_wine <-
+  red_wine |>
+  mutate(w_type = "red")
+red_wine
+
+```
+
+5. Combine these two data sets into one data set.
+```{r}
+all_wines <- dplyr::bind_rows(white_wine, red_wine)
+all_wines
+```
+
+6. Start a chain on your new combined data object to filter the data to only 
+look at high-quality wines (quality > 6.5) and wines that have a reasonable 
+alcohol value (alcohol < 132).
+```{r}
+all_wines |>
+  filter(quality > 6.5 & alcohol < 132)
+```
+
+7. Continue your chain to now sort the data from highest quality to lowest.
+```{r}
+all_wines |>
+  filter(quality > 6.5 & alcohol < 132) |>
+  arrange(desc(quality))
+  
+```
+
+8.Continue your chain to select only the variables that contain acid, the 
+alcohol variable, the type variable, and the quality variable.
+```{r}
+all_wines |>
+  filter(quality > 6.5 & alcohol < 132) |>
+  arrange(desc(quality)) |>
+  select(contains("acid"),alcohol,w_type,quality)
+  
+```
+
+9. Continue your chain to add the mean and standard deviation of the alcohol 
+variable to the data set for each setting of the quality variable
+```{r}
+all_wines |>
+  filter(quality > 6.5 & alcohol < 132) |>
+  arrange(desc(quality)) |>
+  select(contains("acid"),alcohol,w_type,quality) |>
+  group_by(quality) |>
+  mutate(across(alcohol,list(mean=mean,sd=sd),
+                .names = "{.col}_{.fn}"))
+  
+```
+
 ## Task 3: Database Practice
+1. Connect to the database and then look at all of the tables in the database.
+
+```{r}
+library(RSQLite)
+library(DBI)
+con <- dbConnect(RSQLite::SQLite(), "data/lahman.db")
+
+dbListTables(con)
+```
+
+2. Use the tbl() function and dplyr to return all of the data from the Teams table for the year 2015.
+
+```{r}
+library(dplyr)
+tbl(con, "Teams") |>
+  filter(yearID == 2015) |>
+  collect()
+```
+
+3. Repeat the above by using the sql() function within tbl()
+
+```{r}
+tbl(con,sql("SELECT *
+FROM Teams
+WHERE yearID = 2015.0")) |>
+  collect()
+```
+
+4. Return all of the players in the hall of fame, the year they were voted into 
+the hall of fame, and their category (only those three variables!). See the 
+HallOfFame table, the inducted variable is important here.
+
+```{r}
+hof <- tbl(con, "HallOfFame") |> 
+  select(playerID, yearID, category) |> 
+  collect()
+hof
+```
+
+5. Combine the table from the previous question with the People table in order 
+to have the nameFirst and nameLast names added to what was returned above.
+
+```{r}
+ppl <- tbl(con, "People") |> 
+  select(playerID, nameFirst, nameLast) |> 
+  collect()
+ppl
+
+#join
+ppl_w_names <- left_join(hof,ppl,by = join_by(playerID == playerID))
+ppl_w_names
+```
+
+6. Managers related tasks
+
+```{r}
+#Determine the overall win/loss records
+tbl(con, "Managers") |> 
+  select(playerID, G, W, L) |>
+  group_by(playerID) |>
+  summarize(G_managed = sum(G, na.rm = TRUE),
+            Total_W = sum(W, na.rm = TRUE),
+            Total_L = sum(L, na.rm = TRUE)) |>
+  collect() 
+
+#Create a new variable that is the career win/loss percentage (Total_W/G_managed).
+#Sort the resulting data by the win/loss percentage variable (from largest to smallest)
+tbl(con, "Managers") |> 
+  select(playerID, G, W, L) |>
+  group_by(playerID) |>
+  summarize(G_managed = sum(G, na.rm = TRUE),
+            Total_W = sum(W, na.rm = TRUE),
+            Total_L = sum(L, na.rm = TRUE)) |>
+  collect() |>
+  mutate(w_l_percent = round((Total_W/G_managed)*100,2)) |>
+  arrange(desc(w_l_percent))
+
+```
+
+7. Use the results from the previous two questions to answer this one! Return 
+information for only the people that managed a team and were inducted into the 
+hall of fame (regardless of their category in the hall of fame - you want to 
+return all people in the hall of fame that ever managed at all). (Just return 
+all of the variables from both of the above two questions - 9 total columns)
+
+```{r}
+managers <- tbl(con, "Managers") |> 
+  select(playerID, G, W, L) |>
+  group_by(playerID) |>
+  summarize(G_managed = sum(G, na.rm = TRUE),
+            Total_W = sum(W, na.rm = TRUE),
+            Total_L = sum(L, na.rm = TRUE)) |>
+  collect() |>
+  mutate(w_l_percent = round((Total_W/G_managed)*100,2)) |>
+  arrange(desc(w_l_percent)) |> 
+  collect()
+
+inner_join(managers,
+           ppl_w_names, 
+           by = join_by(playerID == playerID))
+```
+
+Diconnect from a database 
+
+```{r}
+dbDisconnect(con)
+```
+
